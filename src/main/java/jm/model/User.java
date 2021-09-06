@@ -4,16 +4,21 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.validation.constraints.NotEmpty;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Getter
+@Setter
 @Entity
 @Table(name = "users")
 public class User implements UserDetails {
@@ -39,8 +44,8 @@ public class User implements UserDetails {
     @Column(name = "age")
     private byte age;
 
-    @JsonIgnoreProperties("users")
-    @JsonManagedReference
+//    @JsonIgnoreProperties("users")
+//    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
     @JoinTable(name = "users_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -61,50 +66,13 @@ public class User implements UserDetails {
         }
     }
 
-    public String getFirstname() {
-        return firstname;
+    public ArrayList<String> getRolesUser(User user) {
+        ArrayList<String> rolesList = new ArrayList<>();
+        for(Role role: user.getRoles()) {
+            rolesList.add(role.getRole());
+        }
+        return rolesList;
     }
-
-    public void setFirstname(String firstname) {
-        this.firstname = firstname;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public byte getAge() {
-        return age;
-    }
-
-    public void setAge(byte age) {
-        this.age = age;
-    }
-
-    public Set<Role> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
-    }
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

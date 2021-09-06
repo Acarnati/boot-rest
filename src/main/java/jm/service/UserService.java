@@ -1,6 +1,7 @@
 package jm.service;
 
 import jm.dao.UserDao;
+import jm.model.Role;
 import jm.model.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
@@ -13,5 +14,5 @@ public interface UserService extends UserDetailsService {
     User findUserById(long id);
     void deleteUserById(long id);
     void updateUser(User user);
-
+    Role getRole(String role);
 }

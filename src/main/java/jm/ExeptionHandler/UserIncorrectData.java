@@ -8,4 +8,8 @@ public class UserIncorrectData {
 
     public UserIncorrectData() {
     }
+
+    public UserIncorrectData(String info) {
+        this.info = info;
+    }
 }
