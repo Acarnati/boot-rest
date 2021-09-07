@@ -21,7 +21,6 @@ public class Role implements GrantedAuthority {
     @Column(name = "role")
     private String role;
 
-//    @JsonIgnoreProperties("roles")
     @JsonBackReference
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private Set<User> users;

@@ -78,7 +78,7 @@
                                             <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Login</th>
+                                                <th>E-mail</th>
                                                 <th>Firstname</th>
                                                 <th>Lastname</th>
                                                 <th>Password</th>
@@ -136,7 +136,8 @@
                                                 <div class="text-center">
                                                     <p class="mb-0">Role</p>
                                                 </div>
-                                                <select class="form-select w-100" name="rolesSelected" id="newroles" multiple>
+                                                <select class="form-select w-100" name="rolesSelected" id="newroles"
+                                                        multiple>
                                                 </select>
                                             </div>
                                             <div class="text-center">
@@ -151,79 +152,53 @@
                         </div>
                     </div>
                 </div>
+                <div class="tab-pane fade" id="v-pills-user" role="tabpanel"
+                     aria-labelledby="v-pills-user-tab">
+                    <div class="container">
+                        <table class="table table-striped" id="mainTableWithUserId">
+                            <caption>About user</caption>
+                            <thead>
+                            <tr>
+                                <th scope="col">Id</th>
+                                <th scope="col">E-mail</th>
+                                <th scope="col">Firstname</th>
+                                <th scope="col">Lastname</th>
+                                <th scope="col">Password</th>
+                                <th scope="col">Age</th>
+                                <th scope="col">Roles</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </div>
 
-<!--&lt;!&ndash;таблица юзеров&ndash;&gt;-->
-<!--<div class="container-fluid">-->
+<div class="modal fade" id="someDefaultModal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
 
-<!--    <div class="d-flex justify-content-center">-->
-<!--        <div>-->
-<!--            <table class="table table-striped" id="mainTableWithUsers">-->
-<!--                <thead>-->
-<!--                <tr>-->
-<!--                    <th>ID</th>-->
-<!--                    <th>Login</th>-->
-<!--                    <th>Firstname</th>-->
-<!--                    <th>Lastname</th>-->
-<!--                    <th>Password</th>-->
-<!--                    <th>Age</th>-->
-<!--                    <th>Roles</th>-->
-<!--                    <th>Edit</th>-->
-<!--                    <th>Delete</th>-->
-<!--                </tr>-->
-<!--                </thead>-->
-<!--                <tbody>-->
-<!--                </tbody>-->
-<!--            </table>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
 
-<!--форма заполнения нового юзера и две кнопки-->
-<!--<div class="container-fluid">-->
-<!--    <div class="d-flex justify-content-center">-->
+            <div class="modal-body">
+            </div>
 
-<!--        <div class="form-group align-items-center">-->
-<!--            <form id="defaultSomeForm" data-hidden=true style="display: none">-->
-<!--                <input class="form-control" id="AddNewUserLogin" type="text" placeholder="login"><br>-->
-<!--                <input class="form-control" id="AddNewUserPassword" type="password" placeholder="password"><br>-->
-<!--                <input class="form-control" id="AddNewUserAge" type="number" placeholder="age"><br>-->
-<!--                <button class="btn btn-primary mb-2" type="button" id="addNewUserButton">Add new user</button>-->
-<!--            </form>-->
-<!--            <div class="p-2">-->
-<!--                <button class="btn btn-outline-success" id="SliderNewUserForm">Show panel</button>-->
-<!--            </div>-->
-<!--        </div>-->
+            <div class="modal-footer">
+            </div>
 
-<!--    </div>-->
-<!--</div>-->
-
-<!--скрытое дефолтное модальное окно -->
-<!--<div class="modal fade" id="someDefaultModal" tabindex="-1" role="dialog" aria-labelledby="someDefaultModalLabel"-->
-<!--     aria-hidden="true">-->
-<!--    <div class="modal-dialog">-->
-<!--        <div class="modal-content">-->
-
-<!--            <div class="modal-header">-->
-<!--                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <span aria-hidden="true">&times;</span>-->
-<!--                </button>-->
-<!--            </div>-->
-
-<!--            <div class="modal-body">-->
-<!--            </div>-->
-
-<!--            <div class="modal-footer">-->
-<!--            </div>-->
-
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
-
+        </div>
+    </div>
+</div>
 
 <script src="webjars/jquery/3.5.1/jquery.js"></script>
 <script src="webjars/popper.js/1.16.0/umd/popper.js"></script>

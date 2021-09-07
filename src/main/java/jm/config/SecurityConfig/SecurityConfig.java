@@ -65,8 +65,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //страницы аутентификаци доступна всем
                 .antMatchers("/login").anonymous()
                 // защищенные URL
-                .antMatchers("index").permitAll()
-//                .antMatchers("index").hasAuthority("ADMIN")
+                .antMatchers("/index").hasAuthority("ADMIN")
                 .antMatchers("/userPage").hasAnyAuthority("USER", "ADMIN")
                 .anyRequest().authenticated();
     }
@@ -75,6 +74,4 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configGlobalSecurity(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(encoderReal());
     }
-
-
 }

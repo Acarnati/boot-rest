@@ -7,6 +7,8 @@ import jm.model.Role;
 import jm.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -35,16 +37,6 @@ public class UserDetailsServiceImpl implements UserService {
     }
 
     @Override
-    public User findByLogin(String login) {
-
-        try {
-            return userDao.findByLogin(login);
-        } catch (Exception e) {
-            throw new NoSuchUserException("There is not user with such login");
-        }
-    }
-
-    @Override
     public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         return userDao.findByLogin(s);
     }
@@ -69,6 +61,19 @@ public class UserDetailsServiceImpl implements UserService {
     }
 
     @Override
+    public User authUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String email;
+        Object principal = authentication.getPrincipal();
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails)principal).getUsername();
+        } else {
+            email = principal.toString();
+        }
+        return (User) loadUserByUsername(email);
+    }
+
+    @Override
     public Set<User> findAllUsers() {
         // sorted by id
         return userDao.findAll().stream()
@@ -78,6 +83,10 @@ public class UserDetailsServiceImpl implements UserService {
 
     @Override
     public void updateUser(User user) {
+        Set<Role> defaultRoles = Collections.singleton(getRole("USER"));
+        if (user.getRoles().size() == 0) {
+            user.setRoles(defaultRoles);
+        }
         User oldUser = findUserById(user.getId());
         if (!oldUser.getPassword().equals(user.getPassword())) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));

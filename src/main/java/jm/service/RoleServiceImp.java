@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 import jm.dao.RoleDAO;
 import jm.model.Role;
 
-import java.util.List;
 import java.util.Set;
 
 @Service
@@ -27,20 +26,5 @@ public class RoleServiceImp implements RoleService {
     @Override
     public Set<Role> getAllRole() {
         return roleDAO.getAllRole();
-    }
-
-    @Override
-    public Role getRoleById(Integer id) {
-        return roleDAO.getRoleById(id);
-    }
-
-    @Override
-    public void updateRole(Role role) {
-        roleDAO.updateRole(role);
-    }
-
-    @Override
-    public Role getRoleByRolename(String role) {
-        return roleDAO.getRoleByRolename(role);
     }
 }

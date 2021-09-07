@@ -13,10 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
@@ -35,6 +32,11 @@ public class RestUserController {
         return new ResponseEntity<>(users, HttpStatus.OK);
     }
 
+    @GetMapping("/user")
+    public User getOurUser() {
+        return userService.authUser();
+    }
+
     @GetMapping("/users/{id}")
     public User getUser(@PathVariable int id) {
         User user = userService.findUserById(id);
@@ -46,30 +48,22 @@ public class RestUserController {
 
     @PostMapping("/users")
     public ResponseEntity<UserIncorrectData> addNewUser(@Valid @RequestBody User user, BindingResult bindingResult) {
-        if(bindingResult.hasErrors()) {
-            String error = getErrorsFromBindingResult(bindingResult);
+        if (bindingResult.hasErrors()) {
+            String error = "Error adding a user";
             return new ResponseEntity<>(new UserIncorrectData(error), HttpStatus.BAD_REQUEST);
         }
         userService.addNewUser(user);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    private String getErrorsFromBindingResult(BindingResult bindingResult) {
-        return bindingResult.getFieldErrors()
-                .stream()
-                .map(x -> x.getDefaultMessage())
-                .collect(Collectors.joining("; "));
-    }
-
-    @PutMapping("/users")
-    public User updateUser(@RequestBody User user) {
-        Set<Role> roles = new HashSet<>();
-        for (Role role : user.getRoles()) {
-            roles.add(roleService.getRoleByRolename(role.getRole()));
+    @PutMapping("/users/{id}")
+    public ResponseEntity<UserIncorrectData> updateUser(@PathVariable("id") Long id, @Valid @RequestBody User user) {
+        try {
+            userService.updateUser(user);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (DataIntegrityViolationException e) {
+            throw new NoSuchUserException("User with such login Exist");
         }
-        user.setRoles(roles);
-        userService.updateUser(user);
-        return user;
     }
 
     @DeleteMapping("/users/{id}")
