@@ -23,14 +23,14 @@ import java.util.stream.Collectors;
 
 @Service
 @Transactional
-public class UserDetailsServiceImpl implements UserService {
+public class UserServiceImpl implements UserService {
 
     private final UserDao userDao;
     private final BCryptPasswordEncoder passwordEncoder;
     private final RoleDAO roleDao;
 
     @Autowired
-    public UserDetailsServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder, RoleDAO roleDao) {
+    public UserServiceImpl(UserDao userDao, BCryptPasswordEncoder passwordEncoder, RoleDAO roleDao) {
         this.userDao = userDao;
         this.passwordEncoder = passwordEncoder;
         this.roleDao = roleDao;

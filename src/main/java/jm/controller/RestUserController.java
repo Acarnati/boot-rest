@@ -33,17 +33,18 @@ public class RestUserController {
     }
 
     @GetMapping("/user")
-    public User getOurUser() {
-        return userService.authUser();
+    public ResponseEntity<User> getOurUser() {
+        User user = userService.authUser();
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @GetMapping("/users/{id}")
-    public User getUser(@PathVariable int id) {
+    public ResponseEntity<User> getUser(@PathVariable int id) {
         User user = userService.findUserById(id);
         if (user == null) {
             throw new NoSuchUserException("There is no user with ID = " + id + " in Database");
         }
-        return user;
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/users")
@@ -67,17 +68,18 @@ public class RestUserController {
     }
 
     @DeleteMapping("/users/{id}")
-    public String deleteUser(@PathVariable int id) {
+    public ResponseEntity<String> deleteUser(@PathVariable int id) {
         User user = userService.findUserById(id);
         if (user == null) {
             throw new NoSuchUserException("There is no user with ID = " + id + " in Database");
         }
         userService.deleteUserById(id);
-        return "User with ID = " + id + " was deleted";
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "/roles")
-    public Set<Role> findAllRoles() {
-        return roleService.getAllRole();
+    public ResponseEntity<Set<Role>> findAllRoles() {
+        Set<Role> roles = roleService.getAllRole();
+        return new ResponseEntity<>(roles, HttpStatus.OK);
     }
 }

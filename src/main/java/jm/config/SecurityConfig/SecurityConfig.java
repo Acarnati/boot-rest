@@ -21,7 +21,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     public SecurityConfig(SuccessUserHandler successUserHandler,
-                          @Qualifier("userDetailsServiceImpl")
+                          @Qualifier("userServiceImpl")
                                   UserDetailsService userDetailsService) {
         this.successUserHandler = successUserHandler;
         this.userDetailsService = userDetailsService;
